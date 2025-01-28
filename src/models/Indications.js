@@ -1,23 +1,26 @@
 import {DataTypes} from 'sequelize';
-import sequelize from '../data/db';
+import sequelize from '../data/dbConnection.js';
 
 const Indications = sequelize.define('Indications', {
   id: {
     type: DataTypes.UUIDV4,
-    autoIncrement: true,
     primaryKey: true,
   },
   year: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   title: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
+	studios: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
   producers: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   winner: {
     type: DataTypes.BOOLEAN,
