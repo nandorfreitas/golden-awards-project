@@ -1,13 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import router from './routers/routers.js';
-// import sequelize from './data/dbConnection.js';
-// import { fillIndicationTable } from './services/indicationService.js';
+import sequelize from './data/dbConnection.js';
+import { fillIndicationTable } from './services/indicationService.js';
 import errorHandler from './middlewares/errorHandler.js';
 
-dotenv.config();
-// sequelize.sync().then(() => fillIndicationTable()).then(() => console.log('Database connected'));
+sequelize.sync().then(() => fillIndicationTable()).then(() => console.log('Database connected'));
 
 const app = express();
 
