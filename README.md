@@ -34,6 +34,8 @@ Para rodar os testes localmente, rode o seguinte comando
 
 ## Documentação da API
 
+### A aplicação está hospedada em um serviço free com restrições. O serviço fica frequentemente fora do ar por inatividade. Nesses casos as primeiras requisições podem retornar erro ou demorar em torno de 60 segundos para responder.
+
 #### Retorna o token de autorização de uso da API. Para fins de teste utilizar o name = userExample
 
 ```http
@@ -44,7 +46,7 @@ Para rodar os testes localmente, rode o seguinte comando
 | :-------- | :------- | :------------ |
 | `name`    | `string` | _Obrigatório_ |
 
-#### Todas as requisições exigem o envio do token via Headers['Authorization']
+### Todas as requisições exigem o envio do token via Headers['Authorization']
 
 #### Retorna os produtores com maior e menor intervalo entre dois prêmios
 
