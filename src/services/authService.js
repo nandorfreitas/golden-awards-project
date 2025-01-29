@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import responseHandler from "../utils/responseHandler.js";
 
-const SECRET = '55c008ac0a3ac649c1bfa5b965b5d88584f68da32077b4a2b95581620478c8ee'; // should be stored in a .env file
+const SECRET = process.env.SECRET; // should be stored in a .env file
 const login = async (req, res, next) => {
 	try {
 		const { name } = req.body;

@@ -37,7 +37,7 @@ Para rodar os testes localmente, rode o seguinte comando
 #### Retorna o token de autorização de uso da API. Para fins de teste utilizar o name = userExample
 
 ```http
-  POST /api/login
+  POST https://golden-awards-project.onrender.com/api/login
 ```
 
 | Parâmetro | Tipo     | Descrição     |
@@ -47,19 +47,19 @@ Para rodar os testes localmente, rode o seguinte comando
 #### Retorna os produtores com maior e menor intervalo entre dois prêmios
 
 ```http
-  GET /api/indications/awards-intervals
+  GET https://golden-awards-project.onrender.com/api/indications/awards-intervals
 ```
 
 #### Retorna todas as indicações
 
 ```http
-  GET /api/indications
+  GET https://golden-awards-project.onrender.com/api/indications
 ```
 
 #### Retorna uma indicação
 
 ```http
-  GET /api/indication/{id}
+  GET https://golden-awards-project.onrender.com/api/indication/{id}
 ```
 
 | Parâmetro | Tipo     | Descrição     |
@@ -69,7 +69,7 @@ Para rodar os testes localmente, rode o seguinte comando
 #### Cria uma nova indicação
 
 ```http
-  POST /api/indication
+  POST https://golden-awards-project.onrender.com/api/indication
 ```
 
 | Parâmetro   | Tipo      | Descrição                                               |
@@ -83,7 +83,7 @@ Para rodar os testes localmente, rode o seguinte comando
 #### Edita uma indicação
 
 ```http
-  PUT /api/indication/{id}
+  PUT https://golden-awards-project.onrender.com/api/indication/{id}
 ```
 
 | Parâmetro   | Tipo      | Descrição                                               |
@@ -98,7 +98,7 @@ Para rodar os testes localmente, rode o seguinte comando
 #### Remove uma indicação
 
 ```http
-  DELETE /api/indication/{id}
+  DELETE https://golden-awards-project.onrender.com/api/indication/{id}
 ```
 
 | Parâmetro | Tipo     | Descrição     |
