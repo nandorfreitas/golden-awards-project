@@ -44,6 +44,8 @@ Para rodar os testes localmente, rode o seguinte comando
 | :-------- | :------- | :------------ |
 | `name`    | `string` | _Obrigatório_ |
 
+#### Todas as requisições exigem o envio do token via Headers['Authorization']
+
 #### Retorna os produtores com maior e menor intervalo entre dois prêmios
 
 ```http
