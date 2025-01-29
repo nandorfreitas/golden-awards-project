@@ -9,6 +9,7 @@ const indicationSchema = Joi.object({
 });
 
 const requestValidator = (req, res, next) => {
+	console.log(req,'requestValidator');
 	const { error } = indicationSchema.validate(req.body);
 	if (error) {
 		return res.status(400).json({ status: 400, message: error.details[0].message });

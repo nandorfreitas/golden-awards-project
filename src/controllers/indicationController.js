@@ -35,8 +35,8 @@ const editMovieIndication = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const { year, title, studios, producers, winner } = req.body;
-		const updatedIndication = await Indications.update({ year, title, studios, producers, winner }, { where: { id } });
-		responseHandler({ res, status: 200, message: 'Indication updated successfully', data: updatedIndication });
+		await Indications.update({ year, title, studios, producers, winner }, { where: { id } });
+		responseHandler({ res, status: 200, message: 'Indication updated successfully' });
 	} catch (err) {
 		next(err);
 	}
@@ -45,8 +45,8 @@ const editMovieIndication = async (req, res, next) => {
 const removeMovieIndication = async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		const indication = await Indications.destroy({ where: { id } });
-		responseHandler({ res, status: 200, message: 'Indication removed successfully', data: indication });
+		await Indications.destroy({ where: { id } });
+		responseHandler({ res, status: 200, message: 'Indication removed successfully' });
 	} catch (err) {
 		next(err);
 	}
