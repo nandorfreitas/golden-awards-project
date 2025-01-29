@@ -1,15 +1,21 @@
 import express from 'express';
 import {
 	getAllIndications,
+	getMovieIndicationById,
+	insertMovieIndication,
+	editMovieIndication,
+	removeMovieIndication,
+	getAwardsIntervals
 } from '../controllers/indicationController.js';
+import requestValidator from '../middlewares/requestValidator.js';
 
 const router = express.Router();
 
-// router.get('/awards-intervals', getAwardsIntervals)
+router.get('/indications/awards-intervals', getAwardsIntervals)
 router.get('/indications', getAllIndications)
-// router.get('/movie-indication/:id', getMovieIndicationById)
-// router.post('/movie-indication', insertMovieIndication)
-// router.put('/movie-indication/:id', editMovieIndication)
-// router.delete('/movie-indication/:id', removeMovieIndication)
+router.get('/indication/:id', getMovieIndicationById)
+router.post('/indication', requestValidator, insertMovieIndication)
+router.put('/indication/:id', requestValidator, editMovieIndication)
+router.delete('/indication/:id', removeMovieIndication)
 
 export default router;
