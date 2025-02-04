@@ -1,32 +1,34 @@
 import request from 'supertest';
 import app from '../../app.js';
 const jwt = require('jsonwebtoken');
-import sequelize from '../../data/dbConnection.js';
-import { fillIndicationTable } from '../../services/indicationService.js';
-
-
-
 
 describe('Indications API Tests', function() {
 	let token;
 
   beforeAll(async () => {
     token = jwt.sign({ name: 'userExample' }, process.env.SECRET, { expiresIn: '1h' });
-		sequelize.sync().then( async () => {
-			if(process.env.NODE_ENV === 'test') await fillIndicationTable('src/controllers/tests/movieListMock.csv');
-		})
 		await new Promise((r) => setTimeout(r, 1000));
   });
 
-	afterAll(async () => {
-		await sequelize.close();
+	it('Should return 401 when token is not provided', async () => {
+		const response = await request(app).get('/api/indications');
+		expect(response.status).toBe(401);
+		expect(response.text).toBe('Unauthorized');
 	});
+
+	it('Should return 401 when token is invalid', async () => {
+		const response = await request(app).get('/api/indications').set({ "authorization":'invalidtoken' });
+		expect(response.status).toBe(401);
+		expect(response.body.status).toBe(401);
+		expect(response.body.message).toBe('jwt malformed');
+	});
+
   it('responds with 200 to get all indications', async () => {
     const response = await request(app).get('/api/indications').set({ "authorization":token });
 		expect(response.body.status).toBe(200);
 		expect(response.body.message).toBe('Ok');
 		expect(response.body.data).toBeInstanceOf(Array);
-		expect(response.body.data.length).toBe(10);
+		expect(response.body.data.length).toBe(206);
   });
 
 	it('responds with null if indication id is not found ', async () => {
@@ -82,9 +84,9 @@ describe('Indications API Tests', function() {
 		expect(response.body.data.max).toBeInstanceOf(Array);
 		expect(response.body.data.min.length).toBe(1);
 		expect(response.body.data.min[0].interval).toBe(1);
-		expect(response.body.data.min[0].producer).toBe('Frank Yablans');
+		expect(response.body.data.min[0].producer).toBe('Joel Silver');
 		expect(response.body.data.max.length).toBe(1);
-		expect(response.body.data.max[0].producer).toBe('Yoram Globus');
+		expect(response.body.data.max[0].producer).toBe('Matthew Vaughn');
 		expect(response.body.data.max[0].interval).toBe(13);
 	});
 });

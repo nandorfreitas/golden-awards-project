@@ -50,7 +50,7 @@ describe('indicationService', () => {
 
 	describe('getProducerAwardsIntervals', () => {
 		it('should return correct intervals for producers with multiple wins', async () => {
-      // Mock data with multiple wins for producers
+
       const mockData = [
         { producers: 'Producer A', year: 2000, winner: true },
         { producers: 'Producer A', year: 2005, winner: true },

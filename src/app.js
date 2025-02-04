@@ -7,9 +7,7 @@ import errorHandler from './middlewares/errorHandler.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
-sequelize.sync().then(() => {
-	if(process.env.NODE_ENV !== 'test') fillIndicationTable('src/data/movielist.csv');
-})
+sequelize.sync().then(() => fillIndicationTable('src/data/movielist.csv'))
 
 const app = express();
 
