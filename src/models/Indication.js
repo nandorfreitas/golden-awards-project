@@ -1,7 +1,7 @@
 import {DataTypes} from 'sequelize';
 import sequelize from '../data/dbConnection.js';
 
-const Indications = sequelize.define('Indications', {
+const Indication = sequelize.define('Indication', {
   id: {
     type: DataTypes.UUIDV4,
 		defaultValue: DataTypes.UUIDV4,
@@ -30,4 +30,4 @@ const Indications = sequelize.define('Indications', {
   },
 });
 
-export default Indications;
+export default Indication;

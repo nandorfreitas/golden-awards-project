@@ -1,10 +1,10 @@
 
-import Indications from '../models/Indications.js';
+import Indication from '../models/Indication.js';
 import csvLoader from '../utils/csvLoader.js';
 import { fillIndicationTable, getProducerAwardsIntervals } from './indicationService.js';
 
 
-jest.mock("../models/Indications.js");
+jest.mock("../models/Indication.js");
 jest.mock("../utils/csvLoader.js");
 
 describe('indicationService', () => {
@@ -19,32 +19,32 @@ describe('indicationService', () => {
 				{ title: 'Movie 2', genre: 'Comedy' },
 			];
 			csvLoader.mockResolvedValue(mockIndications);
-			Indications.bulkCreate.mockResolvedValue();
+			Indication.bulkCreate.mockResolvedValue();
 
-			await fillIndicationTable();
+			await fillIndicationTable('src/data/movielist.csv');
 
 			expect(csvLoader).toHaveBeenCalledWith('src/data/movielist.csv');
-			expect(Indications.bulkCreate).toHaveBeenCalledWith(mockIndications);
+			expect(Indication.bulkCreate).toHaveBeenCalledWith(mockIndications);
 		});
 
 		it('should handle empty CSV file', async () => {
 			csvLoader.mockResolvedValue([]);
-			Indications.bulkCreate.mockResolvedValue();
+			Indication.bulkCreate.mockResolvedValue();
 
-			await fillIndicationTable();
+			await fillIndicationTable('src/data/movielist.csv');
 
 			expect(csvLoader).toHaveBeenCalledWith('src/data/movielist.csv');
-			expect(Indications.bulkCreate).toHaveBeenCalledWith([]);
+			expect(Indication.bulkCreate).toHaveBeenCalledWith([]);
 		});
 
 		it('should handle csvLoader throwing an error', async () => {
 			const mockError = new Error('Failed to load CSV');
 			csvLoader.mockRejectedValue(mockError);
 
-			await fillIndicationTable();
+			await fillIndicationTable('src/data/movielist.csv');
 
 			expect(csvLoader).toHaveBeenCalledWith('src/data/movielist.csv');
-			expect(Indications.bulkCreate).not.toHaveBeenCalled();
+			expect(Indication.bulkCreate).not.toHaveBeenCalled();
 		});
 	});
 
@@ -59,7 +59,7 @@ describe('indicationService', () => {
         { producers: 'Producer C', year: 2011, winner: true },
         { producers: 'Producer C', year: 2013, winner: true },
       ];
-      Indications.findAll.mockResolvedValue(mockData);
+      Indication.findAll.mockResolvedValue(mockData);
 
       const result = await getProducerAwardsIntervals();
 
@@ -75,11 +75,10 @@ describe('indicationService', () => {
     });
 
     it('should handle a single producer with one win', async () => {
-      // Mock data with a single win for a producer
       const mockData = [
         { producers: 'Producer C', year: 2000, winner: true },
       ];
-      Indications.findAll.mockResolvedValue(mockData);
+      Indication.findAll.mockResolvedValue(mockData);
 
       const result = await getProducerAwardsIntervals();
 
@@ -92,7 +91,7 @@ describe('indicationService', () => {
 
 	it('should handle no winners', async () => {
 		const mockData = [];
-		Indications.findAll.mockResolvedValue(mockData);
+		Indication.findAll.mockResolvedValue(mockData);
 
 		const result = await getProducerAwardsIntervals();
 
@@ -108,7 +107,7 @@ describe('indicationService', () => {
 			{ producers: 'Producer D', year: 2000, winner: true },
 			{ producers: 'Producer D', year: 2010, winner: true },
 		];
-		Indications.findAll.mockResolvedValue(mockData);
+		Indication.findAll.mockResolvedValue(mockData);
 
 		const result = await getProducerAwardsIntervals();
 
@@ -129,7 +128,7 @@ describe('indicationService', () => {
 			{ producers: 'Producer E and Producer C', year: 2005, winner: true },
 			{ producers: 'Producer F', year: 2010, winner: true },
 		];
-		Indications.findAll.mockResolvedValue(mockData);
+		Indication.findAll.mockResolvedValue(mockData);
 
 		const result = await getProducerAwardsIntervals();
 

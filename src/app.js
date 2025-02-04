@@ -4,8 +4,12 @@ import router from './routers/routers.js';
 import sequelize from './data/dbConnection.js';
 import { fillIndicationTable } from './services/indicationService.js';
 import errorHandler from './middlewares/errorHandler.js';
+import dotenv from 'dotenv';
 
-sequelize.sync().then(() => fillIndicationTable()).then(() => console.log('Database connected'));
+dotenv.config();
+sequelize.sync().then(() => {
+	if(process.env.NODE_ENV !== 'test') fillIndicationTable('src/data/movielist.csv');
+})
 
 const app = express();
 

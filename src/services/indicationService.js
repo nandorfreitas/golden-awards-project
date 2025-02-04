@@ -1,15 +1,15 @@
-import Indications  from '../models/Indications.js';
+import Indication  from '../models/Indication.js';
 import csvLoader from '../utils/csvLoader.js';
 
-const fillIndicationTable = async () => {
+const fillIndicationTable = async (dataPath) => {
 	try {
-		const indications = await csvLoader('src/data/movielist.csv');
+		const indications = await csvLoader(dataPath);
 		indications.map(indication => {
 			if (indication.winner === 'yes') indication.winner = true
 			else indication.winner = false;
 		});
 
-		await Indications.bulkCreate(indications);
+		await Indication.bulkCreate(indications);
 	} catch (err) {
 		return (err);
 	}
@@ -22,6 +22,7 @@ const formatMultiplesProducersIndications = (indications) => {
 	multiplesProducers.forEach((indication, index) => {
 		const producers = indication.producers.split(/,| and /);
 		producers.forEach(producer => {
+			producer = producer.trim();
 			indications.push({
 				year: indication.year,
 				title: indication.title,
@@ -39,8 +40,8 @@ const formatMultiplesProducersIndications = (indications) => {
 	return indications;
 }
 
-const getProducerAwardsIntervals = async () => {
-	const winnersIndications = await Indications.findAll({where: { winner: true }});
+const getFilteredProducersWinners = async () => {
+	const winnersIndications = await Indication.findAll({where: { winner: true }});
 	const winners = formatMultiplesProducersIndications(winnersIndications)
 	const producerWins = {};
 	winners.forEach(({ producers, year }) => {
@@ -49,6 +50,12 @@ const getProducerAwardsIntervals = async () => {
 		}
 		producerWins[producers].push(year);
 	});
+
+	return producerWins;
+}
+
+const getProducerAwardsIntervals = async () => {
+	const producerWins = await getFilteredProducersWinners();
 
 	let minInterval = Infinity
 	let maxInterval = -Infinity
